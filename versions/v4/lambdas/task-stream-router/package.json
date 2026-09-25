@@ -1,0 +1,24 @@
+{
+  "name": "aws-task-app-task-stream-router",
+  "version": "1.0.0",
+  "private": true,
+  "description": "v4 Lambda — reads DynamoDB Stream records and forwards task events to SQS. Students deploy/configure only.",
+  "license": "MIT",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "test": "vitest run",
+    "package": "esbuild src/index.ts --bundle --platform=node --target=node20 --outfile=dist/index.js --sourcemap && (cd dist && rm -f lambda.zip && zip -q lambda.zip index.js index.js.map)"
+  },
+  "dependencies": {
+    "@aws-sdk/client-sqs": "^3.700.0"
+  },
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.146",
+    "@types/node": "^20.17.0",
+    "esbuild": "^0.24.2",
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.8"
+  }
+}

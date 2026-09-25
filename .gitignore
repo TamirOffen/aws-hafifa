@@ -1,0 +1,12 @@
+# Node
+node_modules/
+dist/
+coverage/
+
+# Local state
+.env
+*.log
+
+# Lambda packaging output lives in dist/ (already covered)
+# macOS
+.DS_Store

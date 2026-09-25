@@ -1,0 +1,56 @@
+/* Deliberately plain. The frontend exists to be a real browser client —
+   visual design is explicitly not the point of this project. */
+body {
+  font-family: system-ui, sans-serif;
+  margin: 2rem auto;
+  max-width: 32rem;
+  line-height: 1.5;
+}
+
+h1 {
+  margin-bottom: 0.25rem;
+}
+
+.environment {
+  color: #555;
+  margin-top: 0;
+  font-family: ui-monospace, monospace;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #eee;
+}
+
+li.done label {
+  color: #888;
+  text-decoration: line-through;
+}
+
+form {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+input[type='text'] {
+  flex: 1;
+  padding: 0.5rem;
+}
+
+button {
+  padding: 0.5rem 1rem;
+}
+
+.error {
+  color: #b00;
+}
+
+.muted {
+  color: #888;
+}

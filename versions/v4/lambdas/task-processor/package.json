@@ -1,0 +1,21 @@
+{
+  "name": "aws-task-app-task-processor",
+  "version": "1.0.0",
+  "private": true,
+  "description": "v4 SQS processor Lambda — consumes task events routed from DynamoDB Streams; demonstrates idempotency and poison messages. Students deploy/configure only.",
+  "license": "MIT",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "test": "vitest run",
+    "package": "esbuild src/index.ts --bundle --platform=node --target=node20 --outfile=dist/index.js --sourcemap && (cd dist && rm -f lambda.zip && zip -q lambda.zip index.js index.js.map)"
+  },
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.146",
+    "@types/node": "^20.17.0",
+    "esbuild": "^0.24.2",
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.8"
+  }
+}
