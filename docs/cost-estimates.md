@@ -25,7 +25,8 @@ Near-free regardless: SQS (1M requests/mo free), Lambda (1M requests +
 400k GB-s free every month), DynamoDB on-demand at workshop scale (free-tier
 WCU/RCU on new accounts, pennies otherwise), DynamoDB Streams (read units at
 workshop scale ≈ $0), t3.micro EC2 test vehicles (free-tier eligible; used
-for minutes), VPC/subnets/route tables/IGW/security groups (**free**).
+for minutes), VPC/subnets/route tables/IGW/security groups (**free**), IAM
+Identity Center (**offered at no additional charge**).
 
 **Total expected: ≈ $70–80 for the month.** Headroom against $100 exists
 for a second attempt at a stage, forgotten-overnight instances, or slightly
@@ -84,9 +85,10 @@ workshop itself, not an optional pause.
 At ~$70/month running Dev, an extra month costs ~$70. If you need to stretch
 across two or three calendar months, park everything between sessions (§4) and
 the marginal cost of elapsed time is ≈ $0 + your deploy-window hours. The
-VPC skeleton, ECR images, IAM roles, SQS queues, and the DynamoDB table are
-all free (or cents) while parked — **only the NAT Gateway, ALB, and running
-containers bill by the hour.**
+VPC skeleton, ECR images, IAM roles (including the Identity Center
+`AWSReservedSSO_*` roles), SQS queues, and the DynamoDB table are all free (or
+cents) while parked — **only the NAT Gateway, ALB, and running containers bill
+by the hour.**
 
 ## 6. Budget hygiene recap (Stage 1 installs these)
 

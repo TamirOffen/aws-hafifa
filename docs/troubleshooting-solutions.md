@@ -42,18 +42,39 @@ stage (`S0-1`, `S1-2`, …) matching the stage files.
   adopt the habit of checking region *before* every create command. This is
   why the workshop uses a dedicated `workshop` profile.
 
-### S1-2 — a command run with a read-only policy
+### S1-2 — a command run with a read-only permission set
 - **Symptom:** `AccessDenied`/`ExplicitDeny` error text on a create/update
   command; read commands work fine.
-- **Investigate:** which policy produced the error (the message includes the
-  statement); who was authenticated (authn) vs what was authorized (authz).
-- **Why:** authentication *proved you are you*; the *policy* decides what that
-  identity may do. An `AccessDenied` that lists a specific action and resource
-  is the IAM system telling you exactly which permission is missing — read it,
-  don't panic.
-- **Fix:** attach the missing action to the right identity (policy statement,
-  or switch to a role that has it). Note the least-privilege lesson: the
-  read-only identity was *correct* for read-only work.
+- **Investigate:** which permission set did the error come from? Confirm who
+  you actually are with `aws sts get-caller-identity` — the assumed-role ARN
+  names the SSO permission set (e.g. `AWSReservedSSO_WorkshopReadOnly_*`). Then
+  open that permission set and read its attached policies.
+- **Why:** authentication *proved you are you*; the *permission set's policy*
+  decides what the role you assumed may do. An `AccessDenied` that lists a
+  specific action and resource is the IAM system telling you exactly which
+  permission is missing — read it, don't panic.
+- **Fix:** add the missing action to the right permission set (or the right
+  profile that assumes a role that has it). Note the least-privilege lesson:
+  the read-only identity was *correct* for read-only work.
+
+### S1-3 — SSO session expired or never started
+- **Symptom:** commands fail with `Error loading SSO Token: Token for …
+  does not exist` or `The SSO session associated with this profile has expired
+  or is otherwise invalid. Run aws sso login to refresh`. Read commands and
+  create commands fail alike.
+- **Investigate:** are you signed in? `aws configure list --profile workshop`
+  shows the profile and region but never a secret. Check the profile's
+  `sso_session` in `~/.aws/config` and when you last ran `aws sso login`. The
+  session duration lives on the `WorkshopAdmin` permission set in the IAM
+  Identity Center console — that is the clock you are racing.
+- **Why:** SSO issues short-lived credentials. The CLI refreshes the 60-minute
+  AWS credentials automatically while the *SSO session token* is valid; the
+  token's lifetime is the permission set's session duration. When it expires,
+  nothing can be signed until you authenticate again. This is the deliberate
+  trade-off of SSO over a long-lived access key.
+- **Fix:** `aws sso login --profile workshop`, complete the browser/MFA prompt,
+  and re-run your command. If you have several SSO sessions, `aws sso logout`
+  clears all cached tokens, and `--sso-session` targets a specific one.
 
 ## Stage 2 — Dev VPC and networking
 
