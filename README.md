@@ -13,7 +13,7 @@ debugging of everything above, sometimes because you broke it on purpose.
 
 ```text
 Stage 0  Run the app locally (no AWS)
-Stage 1  Account, SSO/IAM, AWS CLI, billing guardrails
+Stage 1  Account, IAM, AWS CLI, billing guardrails
 Stage 2  Dev VPC: subnets, route tables, IGW + NAT        ← the core stage
 Stage 3  Docker + ECR + ECS task + ECS service
 Stage 4  ALB, security groups, frontend                    ← Version 1 checkpoint
