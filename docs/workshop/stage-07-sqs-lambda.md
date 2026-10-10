@@ -148,8 +148,8 @@ shock absorber" — observed, not asserted.
   component decided each step.
 - Why the UI survived break 1 (below) and what that implies about decoupling
   — plus the honest cost: publish failures are now *invisible* to users.
-- Human permissions (Stage 1's SSO permission set) vs service permissions
-  (task role, Lambda role) — and why services get roles, not passwords.
+- Human permissions (Stage 1's IAM user) vs service permissions (task role,
+  Lambda role) — and why services get roles, not passwords.
 
 ### Break it
 

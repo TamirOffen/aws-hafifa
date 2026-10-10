@@ -90,11 +90,6 @@ things you built via the CLI is how orphaned resources survive.
    (`dev-backend-task-role`, `dev-backend-execution-role`,
    `dev-task-created-consumer-role`, `dev-task-stream-router-role`,
    `dev-task-processor-role`). Do **not** delete roles you didn't create.
-   Roles named `AWSReservedSSO_WorkshopAdmin_*` are created and managed by IAM
-   Identity Center — do **not** delete them by hand. To remove human access,
-   remove the permission-set assignment (or delete the permission set) in the
-   IAM Identity Center console instead. Deleting the Identity Center instance
-   itself is optional — it is free and it is the workshop's front door.
 7. **Last**: the billing alarm and budget from Stage 1 — they cost nothing,
    but they were yours. Delete them once the account shows $0 run-rate.
 
@@ -105,5 +100,3 @@ things you built via the CLI is how orphaned resources survive.
 - `aws ec2 describe-addresses` → **empty** (the classic leftover: unattached
   Elastic IPs from deleted NAT Gateways).
 - Billing alarm from Stage 1 should go silent.
-- `aws iam list-roles` will still show the `AWSReservedSSO_*` role if Identity
-  Center is enabled — that is expected and free.
