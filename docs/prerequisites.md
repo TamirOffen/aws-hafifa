@@ -16,21 +16,27 @@ you debug it.
 - A single AWS account is used for **both** environments (Dev and Prod). They
   will be isolated at the network level (separate VPCs), which is the lesson —
   not separate accounts.
-- You need enough permissions in that account to: create IAM users/roles/policies,
-  VPCs, ECR repositories, ECS clusters, load balancers, Lambda functions, SQS
-  queues, DynamoDB tables, and billing alarms/budgets. The AWS root account or
-  an administrator user works. (Work instructions for least-privilege-per-person
-  exist but are out of scope — for the workshop, one shared admin-capable account
-  keeps IAM focused on service roles, which is where the real learning is.)
+- You need enough permissions in that account to: **enable IAM Identity Center
+  (SSO)** and create roles/policies, VPCs, ECR repositories, ECS clusters, load
+  balancers, Lambda functions, SQS queues, DynamoDB tables, and billing
+  alarms/budgets. Enabling Identity Center for the first time requires root or
+  administrator access in the **management** account: for a standalone account
+  this just means your own account (enabling Identity Center creates an AWS
+  Organization with your account as the management account); if you are already
+  in an organization, ask your management-account administrator to enable it and
+  assign you.
+- Register **MFA** on the identity you will use — SSO makes this expected, and
+  the workshop treats it as normal practice.
 - **New/empty account recommended.** If you use an account with existing
   infrastructure, double-check every resource name you create — the
   conventions below assume a clean slate.
 
 > **Region discipline.** Every example assumes **us-east-1** (North Virginia).
-> You may use any region, but pick one and stay there. Half the classic AWS
-  foot-guns are "the resource exists, just not in the region you're looking at."
-> The workshop keeps hammering this: always know which region your CLI is
-  pointed at before you press enter.
+> You may use any region, but pick one and stay there — including for the
+> Identity Center instance, so there is only one region to reason about. Half
+> the classic AWS foot-guns are "the resource exists, just not in the region
+> you're looking at." The workshop keeps hammering this: always know which
+> region your CLI is pointed at before you press enter.
 
 ## 3. Tools
 
@@ -45,17 +51,23 @@ you debug it.
 Verify Docker can actually run a container before Stage 0:
 `docker run --rm hello-world`.
 
-## 4. AWS CLI authentication
+## 4. AWS CLI authentication (SSO)
 
-The workshop uses a **long-lived IAM user with an access key** (created in
-Stage 1) for one pragmatic reason: every CLI command should just work while
-you're learning, and Identity Center SSO adds a layer of session management
-on top. This is a workshop convenience, **not** a real-world recommendation —
-in production, prefer IAM Identity Center (SSO) or short-lived roles, and
-never commit access keys anywhere.
+The workshop authenticates the CLI with **AWS IAM Identity Center (SSO)**: you
+sign in through the AWS access portal (with MFA), and the CLI uses short-lived,
+auto-refreshing credentials instead of a long-lived access key. This is how a
+real company grants engineers access — and it means no static secret ever lands
+in a file you could commit.
 
-You will set up a named CLI profile (`workshop`) in Stage 1 so that
-"which account am I on?" is a one-command answer for the rest of the project.
+You will set up a named CLI profile (`workshop`) in Stage 1 with
+`aws configure sso`, then run `aws sso login --profile workshop` at the start of
+each session so that "which account am I on?" is a one-command answer for the
+rest of the project. SSO credentials expire; re-running that one command is the
+cure.
+
+> **Already created a long-lived IAM user for this workshop?** Finish Stage 1
+> through SSO first, then delete that user's access key (and the user). One way
+> in is easier to reason about than two.
 
 ## 5. Cost guardrails (read this twice)
 
