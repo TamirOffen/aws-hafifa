@@ -19,7 +19,7 @@ Stage 1 **before** creating billable resources.
 | Stage | Title | App version | New AWS concepts | Est. time |
 |---|---|---|---|---|
 | 0 | [Run the app locally](stage-00-local-baseline.md) | v1 | request flow, environments | ~1 h |
-| 1 | [Account, IAM, and the AWS CLI](stage-01-account-iam-cli.md) | – | accounts, regions, IAM, policies vs roles, least privilege, cost guardrails | 1–2 h |
+| 1 | [Account, IAM, and the AWS CLI](stage-01-account-iam-cli.md) | – | accounts, regions, ARNs, IAM, policies vs roles, least privilege, cost guardrails | 1–2 h |
 | 2 | [The Dev VPC](stage-02-dev-vpc.md) | – | VPC, CIDR, subnets, AZs, IGW, route tables, NAT | 3–4 h |
 | 3 | [ECR → ECS task → ECS service](stage-03-ecr-ecs.md) | v1 | Docker images, ECR, clusters, task definitions, Fargate, ENIs | 3–4 h |
 | 4 | [ALB, security groups, frontend](stage-04-alb-security-groups-frontend.md) | v1 | ALB, listeners, target groups, SG references | 2–3 h |

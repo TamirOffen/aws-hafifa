@@ -73,8 +73,9 @@ architecture is deliberately shaped around that:
   too. See [cost-estimates.md](cost-estimates.md) and [teardown.md](teardown.md).
 
 In Stage 1, before creating anything, you will install a **billing alarm
-($5)** and a **monthly budget ($50)**. These are permanent habits, not
-sidebars. Every stage ends with a **Cost check**.
+($5)** and a **monthly budget ($50)** — both through the AWS Console, not the
+CLI (Stage 1 §4). These are permanent habits, not sidebars. Every stage ends
+with a **Cost check**.
 
 ## 6. Naming conventions used throughout
 
